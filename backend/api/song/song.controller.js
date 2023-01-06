@@ -3,7 +3,9 @@ const Youtube = require('youtube-stream-url');
 
 async function getSongById(req,res){
     try{
+        if(!req) return
         let song = await Youtube.getInfo({url: `https://www.youtube.com/watch?v=${req.params.id}`})
+        console.log('song',req.params);
         const regex = new RegExp('audio/webm','i');
         song.formats = song.formats.filter(format => regex.test(format.mimeType))
         res.json(song.formats[0].url)
