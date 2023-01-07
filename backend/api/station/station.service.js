@@ -52,15 +52,14 @@ async function add(station) {
 
 async function update(station) {
     try {
-        const stationToSave = {
-            vendor: station.vendor,
-            price: station.price
-        }
+        console.log(station);
+        const stationToSave = {...station}
+        delete stationToSave._id    
         const collection = await dbService.getCollection('station')
         await collection.updateOne({ _id: ObjectId(station._id) }, { $set: stationToSave })
         return station
     } catch (err) {
-        logger.error(`cannot update station ${stationId}`, err)
+        logger.error(`cannot update station ${station._id}`, err)
         throw err
     }
 }

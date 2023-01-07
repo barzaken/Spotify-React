@@ -3,17 +3,16 @@ const dbService = require('../../services/db.service')
 const Youtube = require('youtube-stream-url');
 
 async function query(term) {
+    console.log(term);
     try {
         const criteria = {
             song_title: { $regex: term, $options: 'i' },
-            song_artist: { $regex: term, $options: 'i' }
         }
         const collection = await dbService.getCollection('songs')
         var songs = await collection.find(criteria).toArray()
         if (!songs || !songs.length){
             songs = await fetchSongs(term)
-        } 
-        // console.log('before front',songs);
+         } 
         return songs
     } catch (err) {
         logger.error('cannot find songs', err)
