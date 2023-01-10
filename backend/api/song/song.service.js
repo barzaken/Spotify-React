@@ -23,7 +23,7 @@ async function query(term) {
 async function fetchSongs(term) {
     console.log('Fetching from youtube');
     try{
-        const YOUTUBE_API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&videoEmbeddable=true&type=video&key=AIzaSyCnH_-XZFUZfu4ATQaUyRrKuog3inohJME&q=${term}`;
+        const YOUTUBE_API_URL = `https://www.googleapis.com/youtube/v3/search?part=snippet&videoDuratione=medium&type=video&key=AIzaSyCnH_-XZFUZfu4ATQaUyRrKuog3inohJME&q=${term}`;
         var songs = await fetch(YOUTUBE_API_URL).then(res => res.json()).then(data => data.items)
         if(!songs || !songs.length) return null
         songs = await Promise.all(songs.map(async (song) => {
